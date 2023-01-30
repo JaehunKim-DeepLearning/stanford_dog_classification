@@ -3,7 +3,7 @@
 # weight download https://www.kaggle.com/datasets/ipythonx/efficientnet-keras-noisystudent-weights-b0b7
 
 #### Stanford Dog dataset split for Fold validation ###
-python3 0_split_fold.py --data_path ./stanford_dog/image/Image/
+python3 0_split_fold.py --data_path ./Image/
 
 #### Train transfer learning using EfficientNet  ###
 python3 1_train_model.py --mode B0 --weights imagenet  ##### imagenet noisystudent advprob autoaugment
