@@ -27,7 +27,7 @@ python3 0_split_fold.py --data_path ./stanford_dog/image/Image/
 
 original image dataset path for split
 
-/Image/
+./stanford_dog/image/Image/
   --n02085620-Chihuahua
     --n02085620_7.jpg
     --n02085620_199.jpg
