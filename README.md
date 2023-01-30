@@ -23,11 +23,11 @@ weights data path
 ```
 * Dataset split for fold-validation
 ```
-python3 0_split_fold.py --data_path ./stanford_dog/image/Image/
+python3 0_split_fold.py --data_path ./Image/
 
 original image dataset path for split
 
-./stanford_dog/image/Image/
+./Image/
   --n02085620-Chihuahua
     --n02085620_7.jpg
     --n02085620_199.jpg
