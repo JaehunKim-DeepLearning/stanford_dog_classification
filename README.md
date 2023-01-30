@@ -1,6 +1,6 @@
 # Stanford Dog Image Classification
 
-We proposed stanford dog image classification base line model using Pretrained EfficientNet
+We proposed stanford dog image classification baseline model using Pretrained EfficientNet
 
 ## Getting Started
 * Download stanford dog image dataset
