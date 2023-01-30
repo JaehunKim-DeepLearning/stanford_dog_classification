@@ -46,9 +46,6 @@ weights : imagenet, nosystudent, advprob, autoaugment
 * Train start with image augmentation
 ```
 python3 2_train_model_augment.py --mode B0 --weights imagenet
-
-mode : B0~B7
-weights : imagenet, nosystudent, advprob, autoaugment
 ```
 * Best model result check using history
 ```
