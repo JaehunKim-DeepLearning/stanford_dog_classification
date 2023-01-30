@@ -26,13 +26,14 @@ epochs = 100
 steps_epochs = 512 * 4
 patience = 5
 
+#### GPU select ####
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 
 os.makedirs('./history', exist_ok=True)
 os.makedirs('./model', exist_ok=True)
-os.makedirs('./weights', exist_ok=True)
 
+#### model weights select ####
 if weights == 'noisystudent':
     weights_path = './weights/noisystudent/noisy.student.notop-' + mode.lower() + '.h5'
     use_weights = None
@@ -50,6 +51,7 @@ result = []
 image_path = os.listdir(data_path)
 image_path.sort()
 
+#### pre-trained model select & model create ####
 def model_create(mode):
     if mode == 'B0':
         base_model = tf.keras.applications.EfficientNetB0(weights=use_weights, include_top=False, pooling='avg')
@@ -96,11 +98,13 @@ def model_create(mode):
 
     return model, IMAGE_SIZE, BATCH_SIZE, DROP_OUT
 
+#### data generator concatenate funtion ####
 def combine_gen(*gens):
     while True:
         for g in gens:
             yield next(g)
 
+#### data generator with image augmentation ####
 train_datagen = ImageDataGenerator(
         #rescale=1./255,
         preprocessing_function=preprocess_input,
@@ -112,9 +116,9 @@ train_datagen = ImageDataGenerator(
         brightness_range=[0.7,1.3],
         horizontal_flip=True,
         )
-
 test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)#rescale=1./255)
 
+#### N-fold traning start ####
 for valid_fold in range(fold):
     valid_path = image_path[valid_fold]
     train_path = image_path.copy()
@@ -150,7 +154,6 @@ for valid_fold in range(fold):
         train_generator, 
         epochs=epochs, 
         steps_per_epoch=steps_epochs,
-        #validation_steps=1000,
         validation_data=valid_generator,
         verbose=1,
         shuffle=True,
@@ -168,6 +171,7 @@ for valid_fold in range(fold):
     del model
     gc.collect()
 
+#### Final result print ####
 print("\nFINAL RESULTS")
 for idx, i in enumerate(result):
     print('VALID FOLD', idx+1, 'ACCURACY : %0.3f' %i)

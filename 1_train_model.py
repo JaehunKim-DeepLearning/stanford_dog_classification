@@ -22,13 +22,14 @@ fold = args.fold
 epochs = 100
 patience = 5
 
+#### GPU select ####
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
 
 os.makedirs('./history', exist_ok=True)
 os.makedirs('./model', exist_ok=True)
-os.makedirs('./weights', exist_ok=True)
 
+#### model weights select ####
 if weights == 'noisystudent':
     weights_path = './weights/noisystudent/noisy.student.notop-' + mode.lower() + '.h5'
     use_weights = None
@@ -42,10 +43,10 @@ else:
     use_weights = 'imagenet'
 
 result = []
-
 image_path = os.listdir(data_path)
 image_path.sort()
 
+#### pre-trained model select & model create ####
 def model_create(mode):
     if mode == 'B0':
         base_model = tf.keras.applications.EfficientNetB0(weights=use_weights, include_top=False, pooling='avg')
@@ -92,6 +93,7 @@ def model_create(mode):
 
     return model, IMAGE_SIZE, BATCH_SIZE, DROP_OUT
 
+#### N-fold traning start ####
 for valid_fold in range(fold):
     valid_path = image_path[valid_fold]
     train_path = image_path.copy()
@@ -148,7 +150,7 @@ for valid_fold in range(fold):
     del model
     gc.collect()
 
-
+#### Final result print ####
 print("\nFINAL RESULTS")
 for idx, i in enumerate(result):
     print('VALID FOLD', idx+1, 'ACCURACY : %0.3f' %i)

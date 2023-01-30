@@ -7,19 +7,19 @@ parser.add_argument("--data_path", type=str, default='/home/server/PycharmProjec
 parser.add_argument("--fold", type=int, default=5)
 args = parser.parse_args()
 
-os.makedirs('./dataset', exist_ok=True)
 data_path = args.data_path
-new_path = './dataset/'
 fold = args.fold
+new_path = './dataset/'
 
+#### N-Fold path create ####
+os.makedirs('./weights', exist_ok=True)
 os.makedirs(new_path, exist_ok=True)
-
 for i in range(fold):
     os.makedirs(new_path + '/' + str(i+1), exist_ok=True)
 
+#### Dataset N-Fold split ####
 folder_path = os.listdir(data_path)
 folder_path.sort()
-
 for i in folder_path:
     file_path = os.listdir(data_path + '/' + i)
     file_path.sort()
