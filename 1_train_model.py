@@ -1,10 +1,6 @@
-# weight download https://www.kaggle.com/datasets/ipythonx/efficientnet-keras-noisystudent-weights-b0b7
-# https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet#2-using-pretrained-efficientnet-checkpoints
-
 import os
 import gc
 import argparse
-import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image_dataset_from_directory
