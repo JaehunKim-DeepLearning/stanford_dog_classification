@@ -61,7 +61,7 @@ python3 3_eval_history.py --mode B0
 |Baseline with Imagenet|80.3%|83.1%|84.9%|87.2%|**89.5%**|88.7%|
 |Baseline with NoisyStudent|81.1%|84.2%|85.7%|87.6%|89.1%|88.6%|
 
-[model download link](https://drive.google.com/drive/folders/1FdJZSGJr-6GIgHd-nf6VdpqYiqK-g9lZ?usp=sharing)
+[model download link](http://naver.me/G0JEYARU)
 
 **Best model is using Imagenet weight and B4 architecture**
 
