@@ -55,7 +55,7 @@ weights : imagenet, nosystudent, advprob, autoaugment
 python3 3_eval_history.py --mode B0
 ```
 
-## Result
+## Result of 5-fold-validation
 ||B0|B1|B2|B3|B4|B5|
 |------|---|---|---|---|---|---|
 |Baseline with Imagenet|80.3%|83.1%|84.9%|87.2%|**89.5%**|88.7%|
