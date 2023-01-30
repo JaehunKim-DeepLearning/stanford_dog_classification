@@ -40,8 +40,8 @@ original image dataset path for split
 ```
 python3 1_train_model.py --mode B0 --weights imagenet
 
-mode : B0~B7
-weights : imagenet, nosystudent, advprob, autoaugment
+--mode : B0 ~ B7
+--weights : imagenet, nosystudent, advprob, autoaugment
 ```
 * Train start with image augmentation
 ```
