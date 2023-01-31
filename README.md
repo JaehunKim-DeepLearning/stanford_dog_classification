@@ -49,7 +49,7 @@ python3 2_train_model_augment.py --mode B0 --weights imagenet
 ```
 * Best model result check using history
 ```
-python3 4_eval_history.py --mode B0
+python3 3_eval_history.py --mode B0
 ```
 * Model evaluation
 ```
