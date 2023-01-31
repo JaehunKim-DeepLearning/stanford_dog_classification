@@ -2,6 +2,7 @@ import os
 import argparse
 import numpy as np
 import tensorflow as tf
+from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 parser = argparse.ArgumentParser()
@@ -45,8 +46,6 @@ def model_info(mode):
 
 #### final accuracy report ####
 def valid_report(test, y_pred):
-    from sklearn.metrics import classification_report, confusion_matrix
-
     print("\n###############################")
     print("###### PREDICTION RESULT ######")
     print("###############################\n")
