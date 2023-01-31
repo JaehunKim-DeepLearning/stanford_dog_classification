@@ -1,6 +1,6 @@
 # Stanford Dog Image Classification
 
-We proposed stanford dog image classification base line model using Pretrained EfficientNet
+We proposed stanford dog image classification baseline model using Pretrained EfficientNet
 
 ## Getting Started
 * Download stanford dog image dataset
@@ -40,15 +40,12 @@ original image dataset path for split
 ```
 python3 1_train_model.py --mode B0 --weights imagenet
 
-mode : B0~B7
-weights : imagenet, nosystudent, advprob, autoaugment
+--mode : B0 ~ B7
+--weights : imagenet, nosystudent, advprob, autoaugment
 ```
 * Train start with image augmentation
 ```
 python3 2_train_model_augment.py --mode B0 --weights imagenet
-
-mode : B0~B7
-weights : imagenet, nosystudent, advprob, autoaugment
 ```
 * Best model result check using history
 ```
