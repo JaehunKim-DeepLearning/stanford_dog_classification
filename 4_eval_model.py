@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--mode", type=str, default='B0')
 parser.add_argument("--valid_fold", type=int, default=1)
-parser.add_argument("--model_path", type=str, default='./model/imagenet_FOLD1_B0.hdf5')
+parser.add_argument("--model_path", type=str, default='./model/imagenet_B0_FOLD1.hdf5')
 args = parser.parse_args()
 
 gpu = args.gpu
