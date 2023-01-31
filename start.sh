@@ -14,5 +14,8 @@ python3 1_train_model.py --mode B0 --weights imagenet  ##### imagenet noisystude
 #### Best model result check using history file ####
 python3 3_eval_history.py --mode B0
 
+#### Model evlauation ####
+python3 4_eval_model.py --mode B0 --valid_fold 1 --model_path ./model/imagenet_FOLD1_B0.hdf5
+
 exit 0
 
