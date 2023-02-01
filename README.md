@@ -79,6 +79,4 @@ python3 0_annotation_extract.py --data_path ./Image/ --annotation_path ./Annotat
 
 [model download link](http://naver.me/G0JEYARU)
 
-**Best model is using Imagenet weight and B4 architecture**
-
 
