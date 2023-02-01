@@ -3,6 +3,10 @@
 We proposed stanford dog image classification baseline model using Pretrained EfficientNet
 
 ## Getting Started
+* Quick Start
+```  
+./main_experiment_start.sh
+```
 * Download stanford dog image dataset
 ```
 http://vision.stanford.edu/aditya86/ImageNetDogs/main.html
@@ -20,6 +24,7 @@ weights data path
   --nosystudent
   --advprob
   --autoaugment
+  
 ```
 * Dataset split for fold-validation
 ```
@@ -56,12 +61,20 @@ python3 3_eval_history.py --mode B0
 python3 4_eval_model.py --mode B0 --valid_fold 1 --model_path ./model/imagenet_FOLD1_B0.hdf5
 ```
 
-## Result (5-fold-validation)
-|                            |B0|B1|B2|B3|B4|B5|
-|----------------------------|---|---|---|---|---|---|
-| Baseline with Imagenet     |80.3%|83.1%|84.9%|87.2%|**89.5%**|88.7%|
-| Baseline with NoisyStudent |81.1%|84.2%|85.7%|87.6%|89.1%|88.6%|
+* Additional experiment
+```
+./add_experiment_start.sh
+```
 
+
+
+## Result (5-fold-validation)
+|                                     | B0    | B1    | B2    | B3    | B4        | B5    |
+|-------------------------------------|-------|-------|-------|-------|-----------|-------|
+| Baseline with Imagenet              | 80.3% | 83.1% | 84.9% | 87.2% | **89.5%** | 88.7% |
+| Baseline with NoisyStudent          | 81.1% | 84.2% | 85.7% | 87.6% | 89.1%     | 88.6% |
+| Baseline with Imagenet, Extract     | 81.8% | 84.1% | 85.6% | 86.7% | 88.0%     | 88.2% |
+| Baseline with NoisyStudent, Extract | 83.0% | 85.1% | 86.2% | 87.7% | 0%        | 0%    |
 [model download link](http://naver.me/G0JEYARU)
 
 **Best model is using Imagenet weight and B4 architecture**

@@ -6,16 +6,18 @@ from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--gpu", type=int, default=0)
-parser.add_argument("--mode", type=str, default='B0')
+parser.add_argument("--gpu", type=int, default=2)
+parser.add_argument("--data_path", type=str, default='./dataset/')
+parser.add_argument("--mode", type=str, default='B4')
 parser.add_argument("--valid_fold", type=int, default=1)
-parser.add_argument("--model_path", type=str, default='./model/imagenet_B0_FOLD1.hdf5')
+parser.add_argument("--model_path", type=str, default='./model/imagenet_FOLD1_B4.hdf5')
 args = parser.parse_args()
 
 gpu = args.gpu
 mode = args.mode
 model_path = args.model_path
 valid_fold = args.valid_fold
+data_path = args.data_path
 
 #### GPU select ####
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -60,19 +62,30 @@ def valid_report(test, y_pred):
 IMAGE_SIZE, BATCH_SIZE = model_info(mode)
 
 valid_ds = image_dataset_from_directory(
-    directory='./dataset/' + str(valid_fold),
+    directory= data_path + '/' + str(valid_fold),
     labels='inferred',
     label_mode='categorical',
-    batch_size=BATCH_SIZE,
+    batch_size=1,
     image_size=(IMAGE_SIZE, IMAGE_SIZE))
 
 model = tf.keras.models.load_model(model_path)
 
 predictions = np.array([])
 labels = np.array([])
-
+count = 0
+import shutil
 for x, y in valid_ds:
-  predictions = np.concatenate([predictions, np.argmax(model.predict(x), axis=-1)])
-  labels = np.concatenate([labels, np.argmax(y.numpy(), axis=-1)])
+  #predictions = np.concatenate([predictions, np.argmax(model.predict(x), axis=-1)])
+  #labels = np.concatenate([labels, np.argmax(y.numpy(), axis=-1)])
+  if np.argmax(y.numpy(), axis=-1) != np.argmax(model.predict(x), axis=-1):
+    fail_file = valid_ds.file_paths[count]
+    new_pth = fail_file.replace('dataset', 'fail_file')
+    print(fail_file)
+    print(new_pth)
+    mak_dir = '/'.join(new_pth.split('/')[:-1])
 
-valid_report(labels, predictions)
+    os.makedirs(mak_dir, exist_ok=True)
+    shutil.copy(fail_file, new_pth)
+
+  count += 1
+#valid_report(labels, predictions)

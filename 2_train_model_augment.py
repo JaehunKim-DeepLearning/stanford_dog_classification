@@ -3,6 +3,7 @@ import os
 import argparse
 import pandas as pd
 import tensorflow as tf
+import matplotlib.pyplot as plt
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications.efficientnet import preprocess_input
@@ -13,6 +14,7 @@ parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--mode", type=str, default='B1')
 parser.add_argument("--data_path", type=str, default='./dataset/')
 parser.add_argument("--weights", type=str, default='imagenet') # noisystudent advprob autoaugment imagenet
+parser.add_argument("--affix", type=str, default='')
 parser.add_argument("--fold", type=int, default=5)
 args = parser.parse_args()
 
@@ -21,6 +23,7 @@ mode = args.mode
 data_path = args.data_path
 weights = args.weights
 fold = args.fold
+affix = args.affix
 
 epochs = 100
 steps_epochs = 512 * 4
@@ -106,7 +109,6 @@ def combine_gen(*gens):
 
 #### data generator with image augmentation ####
 train_datagen = ImageDataGenerator(
-        #rescale=1./255,
         preprocessing_function=preprocess_input,
         width_shift_range=0.2,
         height_shift_range=0.2,
@@ -116,6 +118,19 @@ train_datagen = ImageDataGenerator(
         brightness_range=[0.7,1.3],
         horizontal_flip=True,
         )
+#Creates our batch of one image
+
+
+
+def plotImages(images_arr):
+    fig, axes = plt.subplots(1, 5, figsize=(20, 20))
+    axes = axes.flatten()
+    for img, ax in zip(images_arr, axes):
+        ax.imshow(img)
+    plt.tight_layout()
+    plt.show()
+
+
 test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)#rescale=1./255)
 
 #### N-fold traning start ####
@@ -136,6 +151,9 @@ for valid_fold in range(fold):
                 class_mode='categorical')
         train_list.append(tmp_generator)
 
+        #augmented_images = [tmp_generator[0][0][0] for i in range(5)]
+        #plotImages(augmented_images)
+
     train_generator = combine_gen(train_list[0],train_list[1],train_list[2],train_list[3])
 
     valid_generator = test_datagen.flow_from_directory(
@@ -144,7 +162,11 @@ for valid_fold in range(fold):
         batch_size=BATCH_SIZE,
         class_mode='categorical')
 
-    checkponiter = tf.keras.callbacks.ModelCheckpoint(filepath='./model/AUG_' + weights + '_' + mode + '_FOLD' + str(valid_fold+1)  + '.hdf5' , monitor='val_accuracy', verbose=1, mode='max', save_best_only=True)
+    if affix != '':
+        checkponiter = tf.keras.callbacks.ModelCheckpoint(filepath='./model/AUG_' + affix + '_' + weights + '_' + mode + '_FOLD' + str(valid_fold + 1) + '.hdf5', monitor='val_accuracy', verbose=1, mode='max', save_best_only=True)
+    else:
+        checkponiter = tf.keras.callbacks.ModelCheckpoint(filepath='./model/AUG_' + weights + '_' + mode + '_FOLD' + str(valid_fold + 1) + '.hdf5',monitor='val_accuracy', verbose=1, mode='max', save_best_only=True)
+
     earlystopper = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=patience, verbose=1, mode='max', restore_best_weights=True)
 
     print("TRAIN START")
@@ -162,7 +184,12 @@ for valid_fold in range(fold):
 
     hist_df = pd.DataFrame(history.history) 
     result.append(hist_df['val_accuracy'].max())
-    hist_csv_file = './history/AUG_' + weights + '_' + mode + '_FOLD' + str(valid_fold+1) + '_history.csv'
+
+    if affix != '':
+        hist_csv_file = './history/AUG_' + affix + '_' + weights + '_' + mode + '_FOLD' + str(valid_fold+1) + '_history.csv'
+    else:
+        hist_csv_file = './history/AUG_' + weights + '_' + mode + '_FOLD' + str(valid_fold+1) + '_history.csv'
+
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
     print("HISTORY SAVE COMPLETE")

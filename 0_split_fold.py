@@ -3,7 +3,7 @@ import shutil
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--data_path", type=str, default='/home/server/PycharmProjects/blockchain/images/Images/')
+parser.add_argument("--data_path", type=str, default='./Images/')
 parser.add_argument("--fold", type=int, default=5)
 args = parser.parse_args()
 

@@ -10,6 +10,7 @@ parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--mode", type=str, default='B0')
 parser.add_argument("--data_path", type=str, default='./dataset/')
 parser.add_argument("--weights", type=str, default='imagenet') # noisystudent advprob autoaugment imagenet
+parser.add_argument("--affix", type=str, default='')
 parser.add_argument("--fold", type=int, default=5)
 args = parser.parse_args()
 
@@ -18,6 +19,7 @@ mode = args.mode
 data_path = args.data_path
 weights = args.weights
 fold = args.fold
+affix = args.affix
 
 epochs = 100
 patience = 5
@@ -38,6 +40,9 @@ elif weights == 'advprob':
     use_weights = None
 elif weights == 'autoaugment':
     weights_path = './weights/autoaugment/auto.augment.notop-' + mode.lower() + '.h5'
+    use_weights = None
+
+elif weights == None:
     use_weights = None
 else:
     use_weights = 'imagenet'
@@ -125,7 +130,11 @@ for valid_fold in range(fold):
         batch_size=BATCH_SIZE,
         image_size=(IMAGE_SIZE, IMAGE_SIZE))
 
-    checkponiter = tf.keras.callbacks.ModelCheckpoint(filepath='./model/' + weights + '_' + mode + '_FOLD' + str(valid_fold+1)  + '.hdf5' , monitor='val_accuracy', verbose=1, mode='max', save_best_only=True)
+    if affix != '':
+        checkponiter = tf.keras.callbacks.ModelCheckpoint(filepath='./model/' + affix + '_' + weights + '_' + mode + '_FOLD' + str(valid_fold + 1) + '.hdf5', monitor='val_accuracy', verbose=1, mode='max', save_best_only=True)
+    else:
+        checkponiter = tf.keras.callbacks.ModelCheckpoint(filepath='./model/' + weights + '_' + mode + '_FOLD' + str(valid_fold + 1) + '.hdf5',monitor='val_accuracy', verbose=1, mode='max', save_best_only=True)
+
     earlystopper = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=patience, verbose=1, mode='max', restore_best_weights=True)
 
     print("TRAIN START")
@@ -141,7 +150,10 @@ for valid_fold in range(fold):
 
     hist_df = pd.DataFrame(history.history) 
     result.append(hist_df['val_accuracy'].max())
-    hist_csv_file = './history/' + weights + '_' + mode + '_FOLD' + str(valid_fold+1) + '_history.csv'
+    if affix != '':
+        hist_csv_file = './history/' + affix + '_' + weights + '_' + mode + '_FOLD' + str(valid_fold+1) + '_history.csv'
+    else:
+        hist_csv_file = './history/' + weights + '_' + mode + '_FOLD' + str(valid_fold+1) + '_history.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
     print("HISTORY SAVE COMPLETE")

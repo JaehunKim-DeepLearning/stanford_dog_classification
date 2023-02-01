@@ -5,13 +5,15 @@ import matplotlib.pyplot as plt
 parser = argparse.ArgumentParser()
 parser.add_argument("--histroy_path", type=str, default='./history/')
 parser.add_argument("--weights", type=str, default='imagenet') # noisystudent advprob autoaugment imagenet
-parser.add_argument("--mode", type=str, default='B4')
+parser.add_argument("--affix", type=str, default='')
+parser.add_argument("--mode", type=str, default='B5')
 parser.add_argument("--fold", type=int, default=5)
 args = parser.parse_args()
 
 fold = args.fold
 weights = args.weights
 mode = args.mode
+affix = args.affix
 histroy_path = args.histroy_path
 
 acc_list = [] 
@@ -23,7 +25,10 @@ print("\nFOLD HISTORY RESULT OF BEST MODEL")
 
 plt.subplots_adjust(hspace=1)
 for i in range(1, fold+1):
-    df = pd.read_csv(histroy_path + '/' + weights + '_' + mode + '_FOLD' + str(i)  +'_history.csv')
+    if affix != '':
+        df = pd.read_csv(histroy_path + '/' + affix + '_' + weights + '_' + mode + '_FOLD' + str(i) + '_history.csv')
+    else:
+        df = pd.read_csv(histroy_path + '/' + weights + '_' + mode + '_FOLD' + str(i) + '_history.csv')
 
     plt.subplot(fold, 2, i*2-1)
     plt.plot(df['accuracy'])
@@ -31,7 +36,7 @@ for i in range(1, fold+1):
     plt.title('%s Model FOLD%d accuracy' %(mode, i))
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
-    plt.legend(['Train', 'Valid'], loc='upper left')
+    plt.legend(['Train', 'Valid'], loc='upper left', fontsize = 8)
 
     plt.subplot(fold, 2, i*2)
     plt.plot(df['loss'])
@@ -39,7 +44,7 @@ for i in range(1, fold+1):
     plt.title('%s Model FOLD%d loss' % (mode, i))
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
-    plt.legend(['Train', 'Valid'], loc='upper left')
+    #plt.legend(['Train', 'Valid'], loc='upper left')
 
     df = df.sort_values(by=['val_accuracy'], ascending=False)
     df = df.iloc[0]
