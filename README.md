@@ -3,7 +3,7 @@
 We proposed stanford dog image classification baseline model using Pretrained EfficientNet
 
 ## Getting Started
-* Quick Start
+### Quick Start
 ```  
 ./main_experiment_start.sh
 ```
@@ -60,11 +60,15 @@ python3 3_eval_history.py --mode B0
 ```
 python3 4_eval_model.py --mode B0 --valid_fold 1 --model_path ./model/imagenet_FOLD1_B0.hdf5
 ```
-
-* Additional experiment
+### Quick start - Additional experiment 
 ```
 ./add_experiment_start.sh
 ```
+* Image extract using annotation file
+```
+python3 0_annotation_extract.py --data_path ./Image/ --annotation_path ./Annotation/
+```
+
 
 
 
