@@ -3,7 +3,7 @@
 We proposed stanford dog image classification baseline model using Pretrained EfficientNet
 
 ## Getting Started
-### Quick Start
+### Quick Start - Main experiment
 ```  
 ./main_experiment_start.sh
 ```
