@@ -1,6 +1,10 @@
-#!/usr/bin/ bash
-# https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet#2-using-pretrained-efficientnet-checkpoints
-# weight download https://www.kaggle.com/datasets/ipythonx/efficientnet-keras-noisystudent-weights-b0b7
+#!/usr/bin/env bash
+
+wget http://vision.stanford.edu/aditya86/ImageNetDogs/images.tar
+wget http://vision.stanford.edu/aditya86/ImageNetDogs/annotation.tar
+
+tar -xvf "./images.tar" -C "./"
+tar -xvf "./annotation.tar" -C "./"
 
 #### Image extract using annotation file ####
 python3 0_annotation_extract.py --data_path ./Image/ --annotation_path ./Annotation/
