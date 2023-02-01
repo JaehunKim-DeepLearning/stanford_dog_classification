@@ -58,7 +58,7 @@ python3 3_eval_history.py --mode B0
 ```
 * Model evaluation
 ```
-python3 4_eval_model.py --mode B0 --valid_fold 1 --model_path ./model/imagenet_FOLD1_B0.hdf5
+python3 4_eval_model.py --mode B0 --valid_fold 1 --model_path ./model/imagenet_B0_FOLD1.hdf5
 ```
 ### Quick start - Additional experiment 
 ```
