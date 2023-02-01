@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--histroy_path", type=str, default='./history/')
-parser.add_argument("--weights", type=str, default='noisystudent') # noisystudent advprob autoaugment imagenet
-parser.add_argument("--affix", type=str, default='AUG')
-parser.add_argument("--mode", type=str, default='B4')
+parser.add_argument("--weights", type=str, default='imagenet') # noisystudent advprob autoaugment imagenet
+parser.add_argument("--affix", type=str, default='')
+parser.add_argument("--mode", type=str, default='B0')
 parser.add_argument("--fold", type=int, default=5)
 args = parser.parse_args()
 
