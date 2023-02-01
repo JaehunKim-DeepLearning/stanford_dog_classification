@@ -75,6 +75,7 @@ python3 4_eval_model.py --mode B0 --valid_fold 1 --model_path ./model/imagenet_F
 | Baseline with NoisyStudent          | 81.1% | 84.2% | 85.7% | 87.6% | 89.1%     | 88.6% |
 | Baseline with Imagenet, Extract     | 81.8% | 84.1% | 85.6% | 86.7% | 88.0%     | 88.2% |
 | Baseline with NoisyStudent, Extract | 83.0% | 85.1% | 86.2% | 87.7% | 0%        | 0%    |
+
 [model download link](http://naver.me/G0JEYARU)
 
 **Best model is using Imagenet weight and B4 architecture**
