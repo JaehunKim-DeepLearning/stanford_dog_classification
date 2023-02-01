@@ -26,7 +26,7 @@ fold = args.fold
 affix = args.affix
 
 epochs = 100
-steps_epochs = 512 * 4
+steps_epochs = 512
 patience = 5
 
 #### GPU select ####
