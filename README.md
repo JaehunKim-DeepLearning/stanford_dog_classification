@@ -24,7 +24,6 @@ weights data path
   --nosystudent
   --advprob
   --autoaugment
-  
 ```
 * Dataset split for fold-validation
 ```
