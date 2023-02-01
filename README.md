@@ -18,12 +18,12 @@ https://www.kaggle.com/datasets/ipythonx/efficientnet-keras-noisystudent-weights
 weights data path
 
 ./weights/
-  --imagenet
-    --imagenet.notop-b0.h5
-    --imagenet.notop-b1.h5
-  --nosystudent
-  --advprob
-  --autoaugment
+  └imagenet
+    └imagenet.notop-b0.h5
+    └imagenet.notop-b1.h5
+  └nosystudent
+  └advprob
+  └autoaugment
 ```
 * Dataset split for fold-validation
 ```
@@ -32,12 +32,12 @@ python3 0_split_fold.py --data_path ./Image/
 original image dataset path for split
 
 ./Image/
-  --n02085620-Chihuahua
-    --n02085620_7.jpg
-    --n02085620_199.jpg
-    --n02085620_242.jpg
-  --n02085782-Japanese_spaniel
-  --n02085936-Maltese_dog
+  └n02085620-Chihuahua
+    └n02085620_7.jpg
+    └n02085620_199.jpg
+    └n02085620_242.jpg
+  └n02085782-Japanese_spaniel
+  └n02085936-Maltese_dog
   ... 
 ```
 * Train start
