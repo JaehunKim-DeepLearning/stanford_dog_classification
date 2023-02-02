@@ -72,7 +72,7 @@ python3 0_annotation_extract.py --data_path ./Image/ --annotation_path ./Annotat
 |-------------------------------------|-------|---------|-------|-------|-----------|-------|
 | Model with Imagenet                 | 80.3% | 83.1% | 84.9% | 87.2% | **89.5%** | 88.7% |
 | Model with NoisyStudent          | 81.1% | 84.2% | 85.7% | 87.6% | 89.1%     | 88.6% |
-| Model with Imagenet, Augment     | 79.8% | 82.5% | 84.1% | 87.1% | 89.8%     | 0%    |
+| Model with Imagenet, Augment     | 79.8% | 82.5% | 84.1% | 87.1% | 89.8%     | 89.1% |
 | Model with NoisyStudent, Augment | 80.9% | 83.9% | 85.3% | 87.3% | 89.5%     | 89.0% |
 | Model with Imagenet, Extract     | 81.8% | 84.1% | 85.6% | 86.7% | 88.0%     | 88.2% |
 | Model with NoisyStudent, Extract | 83.0% | 85.1% | 86.2% | 87.7% | 88.6%     | 88.7% |
