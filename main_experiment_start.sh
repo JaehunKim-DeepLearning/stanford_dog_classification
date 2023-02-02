@@ -3,8 +3,6 @@
 wget http://vision.stanford.edu/aditya86/ImageNetDogs/images.tar
 tar -xvf "./images.tar" -C "./"
 
-exit 0
-
 #### Stanford Dog dataset split for Fold validation ###
 python3 0_split_fold.py --data_path ./Image/
 
